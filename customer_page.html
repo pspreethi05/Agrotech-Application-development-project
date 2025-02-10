@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Page</title>
+</head>
+<body>
+    <h2>Available Products</h2>
+    <form method="get" action="{{ url_for('search_product') }}">
+        <input type="text" name="search" placeholder="Search for a product">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for product in products %}
+        <li>
+            <img src="{{ product['image'] }}" alt="{{ product['name'] }}" width="100">
+            <p>Name: {{ product['name'] }}</p>
+            <p>Cost: {{ product['cost'] }}</p>
+            <p>Place: {{ product['place'] }}</p>
+            <p>Quantity: {{ product['quantity'] }}</p>
+            <form method="post" action="{{ url_for('buy_product') }}">
+                <input type="hidden" name="product_id" value="{{ product['_id'] }}">
+                <input type="number" name="quantity" min="1" max="{{ product['quantity'] }}" required>
+                <button type="submit">Buy</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
