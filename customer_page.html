@@ -4,6 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 10px auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+        }
+        img {
+            display: block;
+            margin: 0 auto 10px;
+            border-radius: 5px;
+        }
+        p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
     <h2>Available Products</h2>
@@ -15,10 +72,10 @@
         {% for product in products %}
         <li>
             <img src="{{ product['image'] }}" alt="{{ product['name'] }}" width="100">
-            <p>Name: {{ product['name'] }}</p>
-            <p>Cost: {{ product['cost'] }}</p>
-            <p>Place: {{ product['place'] }}</p>
-            <p>Quantity: {{ product['quantity'] }}</p>
+            <p><strong>Name:</strong> {{ product['name'] }}</p>
+            <p><strong>Cost:</strong> ${{ product['cost'] }}</p>
+            <p><strong>Place:</strong> {{ product['place'] }}</p>
+            <p><strong>Quantity:</strong> {{ product['quantity'] }}</p>
             <form method="post" action="{{ url_for('buy_product') }}">
                 <input type="hidden" name="product_id" value="{{ product['_id'] }}">
                 <input type="number" name="quantity" min="1" max="{{ product['quantity'] }}" required>
@@ -29,3 +86,4 @@
     </ul>
 </body>
 </html>
+
